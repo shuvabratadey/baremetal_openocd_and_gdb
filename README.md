@@ -243,6 +243,49 @@ This README provides a comprehensive guide on using OpenOCD for programming and 
 
 20. **adapter driver**: Sets the JTAG adapter driver.
 
+## Silicon Labs Debugging with J-Link
+
+This section outlines the use of SEGGER's J-Link GDB Server for debugging Silicon Labs devices.
+
+<img src="https://github.com/shuvabratadey/baremetal_openocd_and_gdb/blob/main/Pictures/si917.avif" width="500"/></br>
+
+### Starting J-Link GDB Server
+You can start the J-Link GDB server using the command below. Adjust `<DeviceName>`, `<Interface>`, `<Speed>`, and `<PortNumber>` to match your setup:
+
+```bash
+JLinkGDBServerCL -device <DeviceName> -if <Interface> -speed <Speed> -port <PortNumber>
+```
+
+### Example: Launching GDB Server for a Silicon Labs Device
+```bash
+JLinkGDBServerCL -select usb=440285686 -if swd -device siwg917m111mgtba -endian little -speed 1000 -port 2331 -swoport 2332 -telnetport 2333 -ir -localhostonly 1 -log C:\SiliconLabs\SimplicityStudio\v5\developer\adapter_packs\exx32\gdb_20250417_131058.log -singlerun -strict -timeout 0 -nogui
+```
+
+- `-select usb=440285686`: Select the connected J-Link by USB serial number  
+- `-if swd`: Use SWD interface  
+- `-device siwg917m111mgtba`: Silicon Labs device  
+- `-speed 1000`: Set debug speed to 1000 kHz  
+- `-port 2331`: GDB server port  
+- `-swoport 2332`: SWO port (optional)  
+- `-telnetport 2333`: Telnet port  
+- `-log`: Specifies log output path  
+- `-singlerun`: GDB server exits after a single session  
+- `-strict -timeout 0 -nogui`: Additional options for headless operation
+
+### Launching GDB and Connecting to the Target
+After starting the GDB server, run the following from the directory where your build output resides:
+
+```bash
+arm-none-eabi-gdb <program_name>.axf
+```
+
+Then, within GDB, connect to the running J-Link server:
+```gdb
+target remote localhost:2331
+```
+
+Once connected, you can proceed with standard GDB debugging operations (e.g., `b`, `c`, `s`, `n`, `info`, `print`, etc.).
+
 ----------------------------------------------------------------------------
 > [!NOTE]
 > ## For Changing the configuration of stm32 board for chinese blue-pill module:
