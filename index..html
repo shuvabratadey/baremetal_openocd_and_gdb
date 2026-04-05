@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OpenOCD & GDB Docs</title>
+
+<style>
+
+/* GLOBAL */
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: #0f172a;
+    color: #e2e8f0;
+    display: flex;
+}
+
+/* SIDEBAR */
+.sidebar {
+    width: 260px;
+    background: #020617;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+.sidebar h2 {
+    color: #38bdf8;
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+.sidebar input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 12px;
+    border-radius: 6px;
+    border: none;
+    outline: none;
+    font-size: 14px;
+}
+
+.sidebar a {
+    display: block;
+    color: #94a3b8;
+    padding: 8px 10px;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 14px;
+    margin-bottom: 2px;
+}
+
+.sidebar a:hover {
+    background: #1e293b;
+    color: #fff;
+}
+
+/* MAIN CONTENT */
+.main {
+    margin-left: 260px;
+    padding: 30px;
+    width: calc(100% - 260px);
+}
+
+/* TYPOGRAPHY */
+h1 {
+    color: #38bdf8;
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+h2 {
+    color: #22c55e;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    font-size: 30px;
+}
+
+h3 {
+    margin: 18px 0 6px;
+    font-size: 18px;
+    color: #cbd5f5;
+}
+
+p {
+    font-size: 15px;
+    margin-bottom: 10px;
+}
+
+/* SECTION SPACING */
+section {
+    margin-bottom: 25px;
+}
+
+/* CODE BLOCK */
+pre {
+    background: #020617;
+    padding: 12px;
+    border-radius: 8px;
+    overflow-x: auto;
+    position: relative;
+    border: 1px solid #1e293b;
+    font-size: 14px;
+    margin: 0 0 14px;
+}
+
+code {
+    line-height: 1.4;
+    display: block;
+    white-space: pre-wrap;
+}
+
+/* COPY BUTTON */
+.copy-btn {
+    position: absolute;
+    right: 8px;
+    top: 8px;
+    background: #2563eb;
+    color: white;
+    border: none;
+    padding: 5px 9px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.copy-btn:hover {
+    background: #1d4ed8;
+}
+
+/* BUTTON LINKS */
+.btn {
+    display: inline-block;
+    padding: 8px 14px;
+    margin: 4px 6px 4px 0;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.blue { background: #2563eb; color: white; }
+.green { background: #16a34a; color: white; }
+.purple { background: #7c3aed; color: white; }
+
+.btn:hover { opacity: 0.85; }
+
+/* IMAGES */
+img {
+    max-width: 100%;
+    border-radius: 8px;
+    margin-top: 10px;
+}
+
+/* NOTE */
+.note {
+    background: #1e293b;
+    padding: 10px;
+    border-left: 4px solid #38bdf8;
+    border-radius: 6px;
+    font-size: 14px;
+    margin-bottom: 12px;
+}
+
+/* SCROLLBAR */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-thumb {
+    background: #334155;
+    border-radius: 4px;
+}
+
+/* RESPONSIVE FIX */
+@media (max-width: 768px) {
+    body {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        position: relative;
+        width: 100%;
+        height: auto;
+    }
+
+    .main {
+        margin-left: 0;
+        width: 100%;
+        padding: 20px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+    <h2>Docs</h2>
+    <input type="text" id="search" placeholder="Search...">
+
+    <a href="#overview">Overview</a>
+    <a href="#tutorials">Tutorials</a>
+    <a href="#downloads">Downloads</a>
+    <a href="#esp32">ESP32 Setup</a>
+    <a href="#stm32">STM32 Setup</a>
+    <a href="#gdb">GDB Connection</a>
+    <a href="#telnet">Telnet</a>
+    <a href="#debug">Debug Steps</a>
+    <a href="#commands">Commands</a>
+    <a href="#jlink">J-Link</a>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+<h1>OpenOCD & GDB Documentation</h1>
+
+<section id="overview">
+<h2>Overview</h2>
+<p>Complete guide for debugging ESP32 & STM32 using OpenOCD + GDB.</p>
+</section>
+
+<section id="downloads">
+<h2>Downloads</h2>
+<a class="btn blue" href="https://gnutoolchains.com/arm-eabi/openocd/">OpenOCD</a>
+<a class="btn green" href="https://developer.arm.com/downloads/-/gnu-rm">ARM Toolchain</a>
+</section>
+
+<section id="esp32">
+<h2>ESP32 Setup</h2>
+<img src="Pictures/ESP32_ESP-PROG_CONNECTION.png" width="800px">
+
+<pre><button class="copy-btn">Copy</button>
+openocd -f board/esp32-wrover-kit-3.3v.cfg
+</pre>
+</section>
+
+<section id="stm32">
+<h2>STM32 Setup</h2>
+<img src="Pictures/stlink-with-bluepill.jpeg" width="800px">
+
+<pre><button class="copy-btn">Copy</button>
+openocd -f interface/stlink-v2.cfg -f target/stm32f1x.cfg
+</pre>
+</section>
+
+<section id="gdb">
+<h2>GDB Connection</h2>
+<pre><button class="copy-btn">Copy</button>
+target remote localhost:3333
+</pre>
+</section>
+
+<section id="telnet">
+<h2>Telnet</h2>
+<div class="note">
+PuTTY → Telnet → Port 4444 → localhost
+</div>
+</section>
+
+<section id="debug">
+<h2>Debug Steps</h2>
+<img src="Pictures/openocd_gdb_connection/pic-1.png" width="800px">
+<img src="Pictures/openocd_gdb_connection/pic-2.png" width="800px">
+<img src="Pictures/openocd_gdb_connection/pic-3.png" width="800px">
+<img src="Pictures/openocd_gdb_connection/pic-4.png" width="800px">
+</section>
+
+<section id="commands">
+<h2>Commands</h2>
+<pre><button class="copy-btn">Copy</button>
+
+<!-- RESET & FLASH -->
+<h3>Reset & Flash</h3>
+<pre><button class="copy-btn">Copy</button><code>
+monitor reset init          # Reset the board
+monitor reset halt          # Reset and halt execution
+monitor flash erase_address 0x10000 0x2000
+monitor flash write_image erase stm32_blink.ino.elf
+monitor flash write_image blink.bin 0x10000
+shell cls                   # Clear screen (Windows)
+</code></pre>
+
+<!-- TUI -->
+<h3>TUI Mode (ESP32 GDB)</h3>
+<pre><button class="copy-btn">Copy</button><code>
+tui enable / tui disable    # Toggle UI (Ctrl+X + A)
+
+layout asm                  # Assembly view
+layout reg                  # Register view
+lay next / lay prev         # Switch tabs
+
+Ctrl+X then 2               # Split screen
+focus cmd                   # Focus command line
+Ctrl+P                      # Previous commands
+</code></pre>
+
+<!-- BREAKPOINTS -->
+<h3>Breakpoints</h3>
+<pre><button class="copy-btn">Copy</button><code>
+b loop
+b file.c:19
+b stm32_blink.ino:8
+d            # Delete all
+d loop       # Delete specific
+</code></pre>
+
+<!-- EXECUTION -->
+<h3>Execution Control</h3>
+<pre><button class="copy-btn">Copy</button><code>
+c        # Continue
+s        # Step into
+n        # Step over
+fin      # Step out
+where    # Show current execution point
+</code></pre>
+
+<!-- VARIABLES -->
+<h3>Variables & Inspection</h3>
+<pre><button class="copy-btn">Copy</button><code>
+p var
+info variables
+info registers
+info functions
+info stack
+info frame
+</code></pre>
+
+<!-- MEMORY -->
+<h3>Memory Inspection</h3>
+<pre><button class="copy-btn">Copy</button><code>
+x/10cb buf
+x/16dw array
+x/8xb 0x20000000
+x/5i main
+</code></pre>
+
+<!-- WATCH -->
+<h3>Watchpoints</h3>
+<pre><button class="copy-btn">Copy</button><code>
+watch x
+rwatch x
+awatch x
+
+info watchpoints
+delete 1
+disable 1
+enable 1
+</code></pre>
+
+<!-- DUMP -->
+<h3>Memory Dump</h3>
+<pre><button class="copy-btn">Copy</button><code>
+dump memory file.bin 0x20000000 0x20000064
+dump memory buf_dump.bin buf buf+10
+dump i asm.txt main main+100
+dump s str.txt buf
+dump value val.txt var
+</code></pre>
+
+<!-- INFO -->
+<h3>Info Commands</h3>
+<pre><button class="copy-btn">Copy</button><code>
+info breakpoints
+info watchpoints
+info variables
+info functions
+info scope main
+info registers
+info threads
+info stack
+info sources
+info files
+info line
+info address main
+info symbol 0x8002136
+</code></pre>
+
+<!-- CONDITIONAL -->
+<h3>Conditional Execution</h3>
+<pre><button class="copy-btn">Copy</button><code>
+if state == 1
+  print "LED ON"
+else
+  print "LED OFF"
+end
+</code></pre>
+
+<pre><button class="copy-btn">Copy</button><code>
+break loop if state == 1
+break main.c:6 if i == 5
+</code></pre>
+
+<!-- LIST -->
+<h3>Source Listing</h3>
+<pre><button class="copy-btn">Copy</button><code>
+list
+list main
+list 25
+list 30,40
+list file.c:50
+</code></pre>
+
+</section>
+</pre>
+</section>
+
+<section id="jlink">
+<h2>J-Link Debugging</h2>
+<img src="Pictures/si917.avif">
+
+<pre><button class="copy-btn">Copy</button>
+JLinkGDBServerCL -device &lt;DeviceName&gt;
+</pre>
+</section>
+
+</div>
+
+<script>
+document.querySelectorAll(".copy-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+        let code = btn.parentElement.innerText.replace("Copy","");
+        navigator.clipboard.writeText(code);
+        btn.innerText = "Copied!";
+        setTimeout(()=>btn.innerText="Copy",1000);
+    });
+});
+
+document.getElementById("search").addEventListener("keyup", function() {
+    let val = this.value.toLowerCase();
+    document.querySelectorAll(".main section").forEach(sec => {
+        sec.style.display = sec.innerText.toLowerCase().includes(val) ? "" : "none";
+    });
+});
+</script>
+
+<section id="tutorials">
+<h2>Tutorial Links</h2>
+<a class="btn purple" href="https://www.youtube.com/watch?v=_1u7IOnivnM">▶ Video</a>
+<a class="btn purple" href="https://www.youtube.com/watch?v=qWqlkCLmZoE&list=PLERTijJOmYrDiiWd10iRHY0VRHdJwUH4g">📺 Playlist</a>
+</section>
+
+</body>
+</html>
