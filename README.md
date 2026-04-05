@@ -1,6 +1,6 @@
 # openocd_and_gdb
 This README provides a comprehensive guide on using OpenOCD for programming and debugging ESP32 and STM32 microcontroller boards. It includes links to video tutorials and provides download links for OpenOCD. The guide covers essential commands for both ESP32 and STM32 boards, including programming, erasing, and debugging using OpenOCD and GDB. Additionally, it offers instructions on connecting GDB and Telnet with OpenOCD for efficient debugging. Commonly used OpenOCD commands and tips for modifying configurations are also included.
-
+## 🌐Website Link[🔗Clike here](https://shuvabratadey.github.io/baremetal_openocd_and_gdb/)
 
 ## Tutorial Links
 - [Youtube Video Tutorial](https://www.youtube.com/watch?v=_1u7IOnivnM)
